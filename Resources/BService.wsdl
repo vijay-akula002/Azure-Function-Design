@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://example.com/bservice"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    targetNamespace="http://example.com/bservice"
+    name="BService">
+
+    <!-- ================== TYPES ================== -->
+    <types>
+        <xs:schema targetNamespace="http://example.com/bservice"
+                   elementFormDefault="qualified">
+
+            <!-- Header -->
+            <xs:complexType name="GetBHeader">
+                <xs:sequence>
+                    <xs:element name="requestor" type="xs:string"/>
+                    <xs:element name="requestDateTime" type="xs:string"/>
+                    <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <!-- Filter -->
+            <xs:complexType name="GetBFilter">
+                <xs:sequence>
+                    <xs:element name="includeNames" type="xs:boolean"/>
+                    <xs:element name="includeTrees" type="xs:boolean"/>
+                    <xs:element name="includeRoads" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <!-- Wrapped Request -->
+            <xs:element name="GetBRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="header" type="tns:GetBHeader"/>
+                        <xs:element name="filter" type="tns:GetBFilter"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- Wrapped Response -->
+            <xs:element name="GetBResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="header" type="tns:GetBHeader"/>
+                        <xs:element name="Names">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Category" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="CategoryName" type="xs:string"/>
+                                                <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:schema>
+    </types>
+
+    <!-- ================== MESSAGES ================== -->
+
+    <message name="GetBRequestMessage">
+        <part name="parameters" element="tns:GetBRequest"/>
+    </message>
+
+    <message name="GetBResponseMessage">
+        <part name="parameters" element="tns:GetBResponse"/>
+    </message>
+
+    <!-- ================== PORT TYPE ================== -->
+    <portType name="BServicePortType">
+        <operation name="GetBNames">
+            <input message="tns:GetBRequestMessage"/>
+            <output message="tns:GetBResponseMessage"/>
+        </operation>
+    </portType>
+
+    <!-- ================== BINDING ================== -->
+    <binding name="BServiceBinding" type="tns:BServicePortType">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="GetBNames">
+            <soap:operation soapAction="http://example.com/bservice/GetBNames"/>
+
+            <input>
+                <soap:body use="literal"/>
+            </input>
+
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <!-- ================== SERVICE ================== -->
+    <service name="BService">
+        <port name="BServicePort"
+              binding="tns:BServiceBinding">
+            <soap:address location="http://localhost:7800/api/BService"/>
+        </port>
+    </service>
+
+</definitions>

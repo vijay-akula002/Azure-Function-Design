@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://example.com/namesservice"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    targetNamespace="http://example.com/namesservice"
+    name="NamesService">
+
+    <!-- ================== TYPES ================== -->
+    <types>
+        <xs:schema targetNamespace="http://example.com/namesservice"
+                   elementFormDefault="qualified">
+
+            <!-- Request -->
+            <xs:element name="GetNamesRequest">
+                <xs:complexType>
+                    <xs:sequence>
+						<xs:element name="header">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="action" type="xs:string"/>
+									<xs:element name="user" type="xs:string"/>
+									<xs:element name="dateTime" type="xs:string"/>
+									<xs:element name="application" type="xs:string"/>
+									<xs:element name="correlationId" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+                        <xs:element name="data">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="filter">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="includeNames" type="xs:boolean"/>
+                                                <xs:element name="includeTrees" type="xs:boolean"/>
+                                                <xs:element name="includeRoads" type="xs:boolean"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- Response -->
+            <xs:element name="GetNamesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+						<xs:element name="header">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="dateTime" type="xs:string"/>
+									<xs:element name="correlationId" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="data">
+                            <xs:complexType>
+                                <xs:sequence>
+									<xs:element name="Names">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Category" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="CategoryName" type="xs:string"/>
+															<xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:schema>
+    </types>
+
+    <!-- ================== MESSAGES ================== -->
+
+    <message name="GetNamesRequestMessage">
+        <part name="parameters" element="tns:GetNamesRequest"/>
+    </message>
+
+    <message name="GetNamesResponseMessage">
+        <part name="parameters" element="tns:GetNamesResponse"/>
+    </message>
+
+    <!-- ================== PORT TYPE ================== -->
+    <portType name="NamesServicePortType">
+        <operation name="GetNames">
+            <input message="tns:GetNamesRequestMessage"/>
+            <output message="tns:GetNamesResponseMessage"/>
+        </operation>
+    </portType>
+
+    <!-- ================== BINDING ================== -->
+    <binding name="NamesServiceBinding" type="tns:NamesServicePortType">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="GetNames">
+            <soap:operation soapAction="http://example.com/namesservice/GetNames"/>
+            
+            <input>
+                <soap:body use="literal"/>
+            </input>
+
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <!-- ================== SERVICE ================== -->
+    <service name="NamesService">
+        <port name="NamesServicePort"
+              binding="tns:NamesServiceBinding">
+            <soap:address location="http://localhost:8080/NamesService"/>
+        </port>
+    </service>
+
+</definitions>

@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="802db0c5-3b46-40cc-987c-7d14eafda0d3" activeEnvironment="Default" name="Names" resourceRoot="" soapui-version="5.7.2" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="3c58d56d-9cc5-45be-933d-2ba38238b962" wsaVersion="NONE" name="NamesServiceBinding" type="wsdl" bindingName="{http://example.com/namesservice}NamesServiceBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Vijay/ACE/NamesService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/Vijay/ACE/NamesService.wsdl"><con:part><con:url>file:/D:/Vijay/ACE/NamesService.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://example.com/namesservice" name="NamesService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/namesservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <!--================== TYPES ==================-->
+  <types>
+    <xs:schema targetNamespace="http://example.com/namesservice" elementFormDefault="qualified">
+      <!--Request-->
+      <xs:element name="GetNamesRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="action" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="request">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="header">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="user" type="xs:string"/>
+                        <xs:element name="dateTime" type="xs:string"/>
+                        <xs:element name="application" type="xs:string"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="filter">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="includeNames" type="xs:boolean"/>
+                        <xs:element name="includeTrees" type="xs:boolean"/>
+                        <xs:element name="includeRoads" type="xs:boolean"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--Response-->
+      <xs:element name="GetNamesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Names">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Category" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="CategoryName" type="xs:string"/>
+                        <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--================== MESSAGES ==================-->
+  <message name="GetNamesRequestMessage">
+    <part name="parameters" element="tns:GetNamesRequest"/>
+  </message>
+  <message name="GetNamesResponseMessage">
+    <part name="parameters" element="tns:GetNamesResponse"/>
+  </message>
+  <!--================== PORT TYPE ==================-->
+  <portType name="NamesServicePortType">
+    <operation name="GetNames">
+      <input message="tns:GetNamesRequestMessage"/>
+      <output message="tns:GetNamesResponseMessage"/>
+    </operation>
+  </portType>
+  <!--================== BINDING ==================-->
+  <binding name="NamesServiceBinding" type="tns:NamesServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetNames">
+      <soap:operation soapAction="http://example.com/namesservice/GetNames"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--================== SERVICE ==================-->
+  <service name="NamesService">
+    <port name="NamesServicePort" binding="tns:NamesServiceBinding">
+      <soap:address location="http://localhost:8080/NamesService"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:7071/api/names/v1</con:endpoint><con:endpoint>http://localhost:7138/api/names/v1</con:endpoint><con:endpoint>http://localhost:7800/NamesService</con:endpoint><con:endpoint>http://localhost:8080/NamesService</con:endpoint></con:endpoints><con:operation id="f8963a37-f00e-4531-af60-0214d23748be" isOneWay="false" action="http://example.com/namesservice/GetNames" name="GetNames" bindingOperationName="GetNames" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="63fbf39f-040f-453d-bd77-cde31955b502" name="A"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7071/api/names/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nam="http://example.com/namesservice">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <nam:GetNamesRequest>\r
+         <nam:header>\r
+            <nam:action>A</nam:action>\r
+         </nam:header>\r
+         <nam:request>\r
+            <nam:filter>\r
+               <nam:includeNames>true</nam:includeNames>\r
+               <nam:includeTrees>true</nam:includeTrees>\r
+               <nam:includeRoads>true</nam:includeRoads>\r
+            </nam:filter>\r
+         </nam:request>\r
+      </nam:GetNamesRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/namesservice/GetNames"/><con:wsrmConfig version="1.2"/></con:call><con:call id="fc6be1e7-bc12-40c3-bef9-a46c1eacf417" name="B"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7071/api/names/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nam="http://example.com/namesservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <nam:GetNamesRequest>
+         <nam:header>
+            <nam:action>B</nam:action>
+         </nam:header>
+         <nam:request>
+            <nam:filter>
+               <nam:includeNames>true</nam:includeNames>
+               <nam:includeTrees>true</nam:includeTrees>
+               <nam:includeRoads>true</nam:includeRoads>
+            </nam:filter>
+         </nam:request>
+      </nam:GetNamesRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/namesservice/GetNames"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="4ccd4e17-7f0b-454c-81db-217c9b667d78" wsaVersion="NONE" name="AServiceBinding" type="wsdl" bindingName="{http://example.com/aservice}AServiceBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Vijay/ACE/AService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/Vijay/ACE/AService.wsdl"><con:part><con:url>file:/D:/Vijay/ACE/AService.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://example.com/aservice" name="NamesService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/aservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <!--================== TYPES ==================-->
+  <types>
+    <xs:schema targetNamespace="http://example.com/aservice" elementFormDefault="qualified">
+      <!--Request-->
+      <xs:element name="GetARequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="requestor" type="xs:string"/>
+                  <xs:element name="requestDateTime" type="xs:string"/>
+                  <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="request">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="filter">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="includeNames" type="xs:boolean"/>
+                        <xs:element name="includeTrees" type="xs:boolean"/>
+                        <xs:element name="includeRoads" type="xs:boolean"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--Response-->
+      <xs:element name="GetAResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="requestor" type="xs:string"/>
+                  <xs:element name="requestDateTime" type="xs:string"/>
+                  <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Names">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Category" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="CategoryName" type="xs:string"/>
+                        <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--================== MESSAGES ==================-->
+  <message name="GetARequestMessage">
+    <part name="parameters" element="tns:GetARequest"/>
+  </message>
+  <message name="GetAResponseMessage">
+    <part name="parameters" element="tns:GetAResponse"/>
+  </message>
+  <!--================== PORT TYPE ==================-->
+  <portType name="AServicePortType">
+    <operation name="GetNames">
+      <input message="tns:GetARequestMessage"/>
+      <output message="tns:GetAResponseMessage"/>
+    </operation>
+  </portType>
+  <!--================== BINDING ==================-->
+  <binding name="AServiceBinding" type="tns:AServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetNames">
+      <soap:operation soapAction="http://example.com/aservice/GetNames"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--================== SERVICE ==================-->
+  <service name="AService">
+    <port name="AServicePort" binding="tns:AServiceBinding">
+      <soap:address location="http://localhost:7800/AService"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://HareKrishna:8088/namesservice/aservice</con:endpoint><con:endpoint>http://localhost:7071/api/AServiceFunction</con:endpoint><con:endpoint>http://localhost:7800/AService</con:endpoint></con:endpoints><con:operation id="d4de7074-78c9-46e8-bccd-c476e019d73a" isOneWay="false" action="http://example.com/aservice/GetNames" name="GetNames" bindingOperationName="GetNames" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="23601326-f723-4787-9d90-aa7e190da3ba" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://HareKrishna:8088/namesservice/aservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:aser="http://example.com/aservice">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <aser:GetARequest>\r
+         <aser:header>\r
+            <aser:requestor>Vijay</aser:requestor>\r
+            <aser:requestDateTime>02062026010101</aser:requestDateTime>\r
+            <aser:callingContext>Reseach</aser:callingContext>\r
+         </aser:header>\r
+         <aser:request>\r
+            <aser:filter>\r
+               <aser:includeNames>true</aser:includeNames>\r
+               <aser:includeTrees>true</aser:includeTrees>\r
+               <aser:includeRoads>true</aser:includeRoads>\r
+            </aser:filter>\r
+         </aser:request>\r
+      </aser:GetARequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/aservice/GetNames"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="2ded5fb4-fbee-4431-929e-cc0907621b5d" wsaVersion="NONE" name="BServiceBinding" type="wsdl" bindingName="{http://example.com/bservice}BServiceBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Vijay/ACE/BService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/Vijay/ACE/BService.wsdl"><con:part><con:url>file:/D:/Vijay/ACE/BService.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://example.com/bservice" name="NamesService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/bservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <!--================== TYPES ==================-->
+  <types>
+    <xs:schema targetNamespace="http://example.com/bservice" elementFormDefault="qualified">
+      <!--Request-->
+      <xs:element name="GetBRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="header">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="requestor" type="xs:string"/>
+                        <xs:element name="requestDateTime" type="xs:string"/>
+                        <xs:element name="callingContext" type="xs:string"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="filter">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="includeNames" type="xs:boolean"/>
+                        <xs:element name="includeTrees" type="xs:boolean"/>
+                        <xs:element name="includeRoads" type="xs:boolean"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--Response-->
+      <xs:element name="GetBResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="requestor" type="xs:string"/>
+                  <xs:element name="requestDateTime" type="xs:string"/>
+                  <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Names">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Category" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="CategoryName" type="xs:string"/>
+                        <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--================== MESSAGES ==================-->
+  <message name="GetBRequestMessage">
+    <part name="parameters" element="tns:GetBRequest"/>
+  </message>
+  <message name="GetBResponseMessage">
+    <part name="parameters" element="tns:GetBResponse"/>
+  </message>
+  <!--================== PORT TYPE ==================-->
+  <portType name="BServicePortType">
+    <operation name="GetNames">
+      <input message="tns:GetBRequestMessage"/>
+      <output message="tns:GetBResponseMessage"/>
+    </operation>
+  </portType>
+  <!--================== BINDING ==================-->
+  <binding name="BServiceBinding" type="tns:BServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetNames">
+      <soap:operation soapAction="http://example.com/bservice/GetNames"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--================== SERVICE ==================-->
+  <service name="BService">
+    <port name="BServicePort" binding="tns:BServiceBinding">
+      <soap:address location="http://localhost:7800/BService"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://HareKrishna:7803/BService</con:endpoint><con:endpoint>http://HareKrishna:8088/namesservice/bservice</con:endpoint><con:endpoint>http://localhost:7800/BService</con:endpoint></con:endpoints><con:operation id="13d89a5f-40c1-4df0-a131-a8b8cea074db" isOneWay="false" action="http://example.com/bservice/GetNames" name="GetNames" bindingOperationName="GetNames" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3c2a47df-91ba-4a8d-933b-0c456c232ea0" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://HareKrishna:8088/namesservice/bservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bser="http://example.com/bservice">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bser:GetBRequest>\r
+         <bser:request>\r
+            <bser:header>\r
+               <bser:requestor>Vijayy</bser:requestor>\r
+               <bser:requestDateTime>02062026010101</bser:requestDateTime>\r
+               <bser:callingContext>Reseach</bser:callingContext>\r
+            </bser:header>\r
+            <bser:filter>\r
+               <bser:includeNames>true</bser:includeNames>\r
+               <bser:includeTrees>true</bser:includeTrees>\r
+               <bser:includeRoads>true</bser:includeRoads>\r
+            </bser:filter>\r
+         </bser:request>\r
+      </bser:GetBRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/bservice/GetNames"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="84d03543-0081-45fa-8279-ca1efba3155e" wsaVersion="NONE" name="DServiceBinding" type="wsdl" bindingName="{http://example.com/dservice}DServiceBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Vijay/ACE/DService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/Vijay/ACE/DService.wsdl"><con:part><con:url>file:/D:/Vijay/ACE/DService.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://example.com/dservice" name="NamesService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/dservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <!--================== TYPES ==================-->
+  <types>
+    <xs:schema targetNamespace="http://example.com/dservice" elementFormDefault="qualified">
+      <!--Request-->
+      <xs:element name="GetDRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="header">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="requestor" type="xs:string"/>
+                        <xs:element name="requestDateTime" type="xs:string"/>
+                        <xs:element name="callingContext" type="xs:string"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="filter">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="includeNames" type="xs:boolean"/>
+                        <xs:element name="includeTrees" type="xs:boolean"/>
+                        <xs:element name="includeRoads" type="xs:boolean"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--Response-->
+      <xs:element name="GetDResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="requestor" type="xs:string"/>
+                  <xs:element name="requestDateTime" type="xs:string"/>
+                  <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Names">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Category" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="CategoryName" type="xs:string"/>
+                        <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--================== MESSAGES ==================-->
+  <message name="GetDRequestMessage">
+    <part name="parameters" element="tns:GetDRequest"/>
+  </message>
+  <message name="GetDResponseMessage">
+    <part name="parameters" element="tns:GetDResponse"/>
+  </message>
+  <!--================== PORT TYPE ==================-->
+  <portType name="DServicePortType">
+    <operation name="GetNames">
+      <input message="tns:GetDRequestMessage"/>
+      <output message="tns:GetDResponseMessage"/>
+    </operation>
+  </portType>
+  <!--================== BINDING ==================-->
+  <binding name="DServiceBinding" type="tns:DServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetNames">
+      <soap:operation soapAction="http://example.com/dservice/GetNames"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--================== SERVICE ==================-->
+  <service name="DService">
+    <port name="DServicePort" binding="tns:DServiceBinding">
+      <soap:address location="http://localhost:7800/DService"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://HareKrishna:8088/mockDServiceBinding</con:endpoint><con:endpoint>http://localhost:7800/DService</con:endpoint></con:endpoints><con:operation id="42cf9ba9-997c-41e5-b178-2cd33d30447d" isOneWay="false" action="http://example.com/dservice/GetNames" name="GetNames" bindingOperationName="GetNames" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8776f7c4-77fd-4e6d-adc1-ceee98e7c884" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://HareKrishna:8088/mockDServiceBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dser="http://example.com/dservice">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <dser:GetDRequest>\r
+         <dser:request>\r
+            <dser:header>\r
+               <dser:requestor>Vijay</dser:requestor>\r
+               <dser:requestDateTime>02062026010101</dser:requestDateTime>\r
+               <dser:callingContext>Reseach</dser:callingContext>\r
+            </dser:header>\r
+            <dser:filter>\r
+               <dser:includeNames>true</dser:includeNames>\r
+               <dser:includeTrees>true</dser:includeTrees>\r
+               <dser:includeRoads>true</dser:includeRoads>\r
+            </dser:filter>\r
+         </dser:request>\r
+      </dser:GetDRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/dservice/GetNames"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="efb14c2d-49b2-4048-819e-cc20efc76e8a" wsaVersion="NONE" name="CServiceBinding" type="wsdl" bindingName="{http://example.com/cservice}CServiceBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Vijay/ACE/CService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/Vijay/ACE/CService.wsdl"><con:part><con:url>file:/D:/Vijay/ACE/CService.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://example.com/cservice" name="NamesService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/cservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <!--================== TYPES ==================-->
+  <types>
+    <xs:schema targetNamespace="http://example.com/cservice" elementFormDefault="qualified">
+      <!--Request-->
+      <xs:element name="GetCRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="header">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="requestor" type="xs:string"/>
+                        <xs:element name="requestDateTime" type="xs:string"/>
+                        <xs:element name="callingContext" type="xs:string"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="filter">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="includeNames" type="xs:boolean"/>
+                        <xs:element name="includeTrees" type="xs:boolean"/>
+                        <xs:element name="includeRoads" type="xs:boolean"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--Response-->
+      <xs:element name="GetCResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="requestor" type="xs:string"/>
+                  <xs:element name="requestDateTime" type="xs:string"/>
+                  <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Names">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Category" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="CategoryName" type="xs:string"/>
+                        <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--================== MESSAGES ==================-->
+  <message name="GetCRequestMessage">
+    <part name="parameters" element="tns:GetCRequest"/>
+  </message>
+  <message name="GetCResponseMessage">
+    <part name="parameters" element="tns:GetCResponse"/>
+  </message>
+  <!--================== PORT TYPE ==================-->
+  <portType name="CServicePortType">
+    <operation name="GetNames">
+      <input message="tns:GetCRequestMessage"/>
+      <output message="tns:GetCResponseMessage"/>
+    </operation>
+  </portType>
+  <!--================== BINDING ==================-->
+  <binding name="CServiceBinding" type="tns:CServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetNames">
+      <soap:operation soapAction="http://example.com/cservice/GetNames"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--================== SERVICE ==================-->
+  <service name="CService">
+    <port name="CServicePort" binding="tns:CServiceBinding">
+      <soap:address location="http://localhost:7800/CService"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://HareKrishna:8088/mockCServiceBinding</con:endpoint><con:endpoint>http://localhost:7800/CService</con:endpoint></con:endpoints><con:operation id="0ca51e6c-f621-4a70-bd1b-de39735e8b6e" isOneWay="false" action="http://example.com/cservice/GetNames" name="GetNames" bindingOperationName="GetNames" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c13dc39a-26f7-4bad-bc17-3cfa134806b9" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://HareKrishna:8088/mockCServiceBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cser="http://example.com/cservice">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cser:GetCRequest>\r
+          <cser:request>
+            <cser:header>
+               <cser:requestor>Vijay</cser:requestor>
+               <cser:requestDateTime>02062026010101</cser:requestDateTime>
+               <cser:callingContext>Reseach</cser:callingContext>
+            </cser:header>
+            <cser:filter>
+               <cser:includeNames>true</cser:includeNames>
+               <cser:includeTrees>true</cser:includeTrees>
+               <cser:includeRoads>true</cser:includeRoads>
+            </cser:filter>
+         </cser:request>
+      </cser:GetCRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/cservice/GetNames"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="2a92e571-3e97-4a4a-99fc-e79409ca4c47" name="TestSuite 1"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="6a474e61-0f37-44d1-a580-33996ee5c618" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true"><con:settings/><con:testStep type="request" id="31a6a226-79df-4287-8319-31d0b601776a" name="GetNames - A"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NamesServiceBinding</con:interface><con:operation>GetNames</con:operation><con:request name="GetNames - A" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="ec43ca32-9b62-44fc-b404-7f96d5e3964d"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7071/api/names/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nam="http://example.com/namesservice">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <nam:GetNamesRequest>\r
+         <nam:header>\r
+            <nam:action>A</nam:action>\r
+         </nam:header>\r
+         <nam:request>\r
+            <nam:filter>\r
+               <nam:includeNames>true</nam:includeNames>\r
+               <nam:includeTrees>true</nam:includeTrees>\r
+               <nam:includeRoads>true</nam:includeRoads>\r
+            </nam:filter>\r
+         </nam:request>\r
+      </nam:GetNamesRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="141ac9c3-ad9d-4967-b69c-319e9826ce31" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/namesservice/GetNames"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="5dec9681-d897-4aa8-980d-b88f149da7be" name="GetNames - B"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NamesServiceBinding</con:interface><con:operation>GetNames</con:operation><con:request name="GetNames - B" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d6e74817-2f73-427f-8f76-7bfe3c009170"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7071/api/names/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nam="http://example.com/namesservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <nam:GetNamesRequest>
+         <nam:header>
+            <nam:action>B</nam:action>
+         </nam:header>
+         <nam:request>
+            <nam:filter>
+               <nam:includeNames>true</nam:includeNames>
+               <nam:includeTrees>true</nam:includeTrees>
+               <nam:includeRoads>true</nam:includeRoads>
+            </nam:filter>
+         </nam:request>
+      </nam:GetNamesRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="bf8821c8-a052-4e5f-8ac7-6ffd1f42c80a" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/namesservice/GetNames"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService id="4d60d4a4-5718-432c-a798-48edca3999a4" port="8088" path="/namesservice/aservice" host="localhost" name="AServiceBinding MockService" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="GetNames" id="9602c73d-2640-420f-9996-88386713480c" interface="AServiceBinding" operation="GetNames"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="1f0a9114-3e51-4554-bb82-c1db6752071e" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:aser="http://example.com/aservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <aser:GetAResponse>
+         <aser:header>
+            <aser:requestor>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/aser:GetDRequest/aser:request/aser:header/aser:requestor }</aser:requestor>
+            <aser:requestDateTime>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/aser:GetDRequest/aser:request/aser:header/aser:requestDateTime }</aser:requestDateTime>
+            <aser:callingContext>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/aser:GetDRequest/aser:request/aser:header/aser:callingContext}</aser:callingContext>
+         </aser:header>
+         <aser:Names>
+            <aser:Category>
+               <aser:CategoryName>Roads</aser:CategoryName>
+               <aser:Name>Abhay Road</aser:Name>
+               <aser:Name>Achyuta Terrace</aser:Name>
+            </aser:Category>
+            <aser:Category>
+               <aser:CategoryName>Tree</aser:CategoryName>
+               <aser:Name>Abhay Trees</aser:Name>
+               <aser:Name>Achyuta Plant</aser:Name>
+            </aser:Category>
+         </aser:Names>
+      </aser:GetAResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/aservice/GetNames"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:mockService id="1e9bad16-cc61-410f-9a3a-41a88e021e07" port="8088" path="/namesservice/bservice" host="localhost" name="BServiceBinding MockService" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="GetNames" id="3c1124c4-d463-4bdd-bb52-f9633274e182" interface="BServiceBinding" operation="GetNames"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="6d7ae555-dae3-4cf3-afdb-f4a7a12e7b6f" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bser="http://example.com/bservice">
+   <soapenv:Header/>
+    <soapenv:Body>
+      <bser:GetBResponse>
+         <bser:header>
+            <bser:requestor>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/bser:GetDRequest/bser:request/bser:header/bser:requestor }</bser:requestor>
+            <bser:requestDateTime>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/bser:GetDRequest/bser:request/bser:header/bser:requestDateTime }</bser:requestDateTime>
+            <bser:callingContext>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/bser:GetDRequest/bser:request/bser:header/bser:callingContext}</bser:callingContext>
+         </bser:header>
+         <bser:Names>
+            <bser:Category>
+               <bser:CategoryName>Roads</bser:CategoryName>
+               <bser:Name>Balaram Road</bser:Name>
+               <bser:Name>Baladev Terrace</bser:Name>
+            </bser:Category>
+            <bser:Category>
+               <bser:CategoryName>Tree</bser:CategoryName>
+               <bser:Name>Balaram Trees</bser:Name>
+               <bser:Name>Baladev Plant</bser:Name>
+            </bser:Category>
+         </bser:Names>
+      </bser:GetBResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/bservice/GetNames"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:mockService id="ceb4d4cf-d263-4db1-8f75-40d5d4a759f1" port="8088" path="/mockCServiceBinding" host="HareKrishna" name="CServiceBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="GetNames" id="24a5694d-2168-4d8f-beca-f481db2e90b4" interface="CServiceBinding" operation="GetNames"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="72d95f3f-25ae-4ccf-8434-1c874f7f76c4" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cser="http://example.com/cservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cser:GetCResponse>
+         <cser:header>
+            <cser:requestor>Vijay</cser:requestor>
+            <cser:requestDateTime>02062026010101</cser:requestDateTime>
+            <cser:callingContext>Reseach</cser:callingContext>
+         </cser:header>
+         <cser:Names>
+            <cser:Category>
+               <cser:CategoryName>Roads</cser:CategoryName>
+               <cser:Name>Dham Road</cser:Name>
+               <cser:Name>Daman Terrace</cser:Name>
+            </cser:Category>
+			<cser:Category>
+               <cser:CategoryName>Tree</cser:CategoryName>
+               <cser:Name>Dham Trees</cser:Name>
+               <cser:Name>Daman Plant</cser:Name>
+            </cser:Category>
+
+         </cser:Names>
+      </cser:GetCResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/cservice/GetNames"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:mockService id="6d2248bd-46a4-4859-9948-aad6f36c946c" port="8088" path="/mockDServiceBinding" host="HareKrishna" name="DServiceBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="GetNames" id="3c8a7620-f22d-45be-8bb5-e3b1f6bc88f1" interface="DServiceBinding" operation="GetNames"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="1667e5af-1ccc-42ab-8493-72b54899312a" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dser="http://example.com/dservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <dser:GetDResponse>
+         <dser:header>
+            <dser:requestor>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/dser:GetDRequest/dser:request/dser:header/dser:requestor }</dser:requestor>
+            <dser:requestDateTime>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/dser:GetDRequest/dser:request/dser:header/dser:requestDateTime }</dser:requestDateTime>
+            <dser:callingContext>${#MockResponse#Request#/soapenv:Envelope/soapenv:Body/dser:GetDRequest/dser:request/dser:header/dser:callingContext}</dser:callingContext>
+         </dser:header>
+         <dser:Names>
+            <dser:Category>
+               <dser:CategoryName>Roads</dser:CategoryName>
+               <dser:Name>Charu Road</dser:Name>
+               <dser:Name>Charan Terrace</dser:Name>
+            </dser:Category>
+            <dser:Category>
+               <dser:CategoryName>Tree</dser:CategoryName>
+               <dser:Name>Charu Trees</dser:Name>
+               <dser:Name>Chaitanya Plant</dser:Name>
+            </dser:Category>
+         </dser:Names>
+      </dser:GetDResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/dservice/GetNames"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
