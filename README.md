@@ -136,8 +136,8 @@ Example mapping:
 
   Action          Handler
   --------------- ----------------------
-  MANAGECLIENTNOTIFICATION  ManageNotificationHandler
-  REGISTERCLIENT     		RegisterHandler
+-   MANAGECLIENTNOTIFICATION  	ManageNotificationHandler
+-   REGISTERCLIENT     			RegisterHandler
   
 
 ------------------------------------------------------------------------
