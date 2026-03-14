@@ -62,9 +62,10 @@ Router --> Client
 sequenceDiagram
     participant Client
     participant Function as Azure Function (SOAP Router)
-    participant Resolver as Handler Resolver
+    participant Resolver as Handler Resolver/Service Provider
     participant Handler as Operation Handler
-    participant Backend as Backend SOAP Service
+    participant Backend as Backend SOAP Client
+	participant Backend as Backend SOAP Service
 
     Client->>Function: SOAP Request
     Function->>Function: Parse SOAP Envelope
@@ -76,8 +77,11 @@ sequenceDiagram
     Function->>Handler: MapRequest(Client SOAP)
     Handler-->>Function: Backend SOAP Request
 
-    Function->>Backend: Invoke Backend SOAP Service
-    Backend-->>Function: Backend SOAP Response
+	Function->>Backend SOAP Client: Invoke Backend SOAP Service
+    Handler-->>Function: Backend SOAP Request
+	
+    Backend SOAP Client->>Backend SOAP Service: Invoke Backend SOAP Service
+    Backend-->>Backend SOAP Client: Backend SOAP Response
 
     Function->>Handler: MapResponse(Backend Response)
     Handler-->>Function: Client SOAP Response
