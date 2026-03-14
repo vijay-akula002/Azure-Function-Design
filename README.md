@@ -78,11 +78,10 @@ sequenceDiagram
     Handler-->>Function: Backend SOAP Request
 
 	Function->>Backend SOAP Client: Invoke Backend SOAP Service
-    Handler-->>Function: Backend SOAP Request
-	
     Backend SOAP Client->>Backend SOAP Service: Invoke Backend SOAP Service
-    Backend-->>Backend SOAP Client: Backend SOAP Response
-
+	Backend SOAP Service-->>Backend SOAP Client: Backend SOAP Response	
+	Backend SOAP Client-->>Function: Backend SOAP Response
+	
     Function->>Handler: MapResponse(Backend Response)
     Handler-->>Function: Client SOAP Response
 
