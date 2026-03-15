@@ -134,5 +134,36 @@ namespace Common
             await response.WriteStringAsync(soapBody, ct);
             return response;
         }
+
+        public static string CreateSoapFault(string faultCode, string faultString)
+        {
+            if (faultCode is null) throw new ArgumentNullException(nameof(faultCode));
+            if (faultString is null) throw new ArgumentNullException(nameof(faultString));
+
+            // Escape values to avoid injecting malformed XML
+            var codeEscaped = WebUtility.HtmlEncode(faultCode);
+            var stringEscaped = WebUtility.HtmlEncode(faultString);
+
+            var sb = new StringBuilder();
+            sb.Append("<soapenv:Envelope xmlns:soapenv=\"").Append(SoapEnvNs).Append("\">")
+              .Append("<soapenv:Body>")
+              .Append("<soapenv:Fault>")
+              .Append("<faultcode>").Append(codeEscaped).Append("</faultcode>")
+              .Append("<faultstring>").Append(stringEscaped).Append("</faultstring>")
+              .Append("</soapenv:Fault>")
+              .Append("</soapenv:Body>")
+              .Append("</soapenv:Envelope>");
+
+            return sb.ToString();
+        }
+
+        public static async Task<HttpResponseData> ReturnSoapFaultResponse(HttpRequestData req, string faultCode, string faultString, HttpStatusCode status = HttpStatusCode.BadRequest, CancellationToken ct = default)
+        {
+            var response = req.CreateResponse(status);
+            response.Headers.Add("Content-Type", "text/xml; charset=utf-8");
+            var body = CreateSoapFault(faultCode, faultString);
+            await response.WriteStringAsync(body, ct);
+            return response;
+        }
     }
 }

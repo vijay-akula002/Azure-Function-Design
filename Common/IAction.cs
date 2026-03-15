@@ -2,10 +2,11 @@ using System.Xml.Linq;
 
 namespace Common;
 
-public interface IActionLabelHandler
+public interface IAction
 {
     string BackendUri { get; }
+    string BackendName { get; }
     XDocument MapRequest(XDocument incomingSoap);
 
-    XDocument MapResponse(XDocument backendResponse);
+    XDocument MapResponse(string backendResponse);
 }

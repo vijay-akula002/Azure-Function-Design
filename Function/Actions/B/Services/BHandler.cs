@@ -6,9 +6,10 @@ using Microsoft.Extensions.Configuration;
 namespace B
 {
     [Action("B")]
-    public class BHandler : IActionLabelHandler
+    public class BHandler : IAction
     {
         public string BackendUri { get; }
+        public string BackendName => "AzureAPIM";
 
         public BHandler(IConfiguration config)
         {
@@ -19,7 +20,7 @@ namespace B
             return RequestMapper.Map(incomingReq.ToString());
         }
 
-        public XDocument MapResponse(XDocument backendResp)
+        public XDocument MapResponse(string backendResp)
         {
             return ResponseMapper.Map(backendResp.ToString());
         }

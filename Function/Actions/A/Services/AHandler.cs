@@ -6,9 +6,10 @@ using NamesFunctionApp.Functions.A.Services;
 namespace A
 {
     [Action("A")]
-    public class AHandler : IActionLabelHandler
+    public class AHandler : IAction
     {
         public string BackendUri { get; }
+        public string BackendName => "AzureAPIM"; 
 
         public AHandler(IConfiguration config)
         {
@@ -16,14 +17,12 @@ namespace A
         }
         public XDocument MapRequest(XDocument incomingReq)
         {
-            // Implement the logic to map the incoming request to the backend service request format
             return RequestMapper.Map(incomingReq.ToString());
         }
 
-        public XDocument MapResponse(XDocument backendResp)
+        public XDocument MapResponse(string backendResp)
         {
             return ResponseMapper.Map(backendResp.ToString());
-            // Implement the logic to map the backend service response to the outgoing response format
         }
     }
 }
