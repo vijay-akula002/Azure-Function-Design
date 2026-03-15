@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://example.com/dservice"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    targetNamespace="http://example.com/dservice"
+    name="DService">
+
+    <!-- ================== TYPES ================== -->
+    <types>
+        <xs:schema targetNamespace="http://example.com/dservice"
+                   elementFormDefault="qualified">
+
+            <!-- Header -->
+            <xs:complexType name="GetDHeader">
+                <xs:sequence>
+                    <xs:element name="requestor" type="xs:string"/>
+                    <xs:element name="requestDateTime" type="xs:string"/>
+                    <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <!-- Filter -->
+            <xs:complexType name="GetDFilter">
+                <xs:sequence>
+                    <xs:element name="includeNames" type="xs:boolean"/>
+                    <xs:element name="includeTrees" type="xs:boolean"/>
+                    <xs:element name="includeRoads" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <!-- Wrapped Request -->
+            <xs:element name="GetDRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="header" type="tns:GetDHeader"/>
+                        <xs:element name="filter" type="tns:GetDFilter"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- Wrapped Response -->
+            <xs:element name="GetDResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="header" type="tns:GetDHeader"/>
+                        <xs:element name="Names">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Category" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="CategoryName" type="xs:string"/>
+                                                <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:schema>
+    </types>
+
+    <!-- ================== MESSAGES ================== -->
+
+    <message name="GetDRequestMessage">
+        <part name="parameters" element="tns:GetDRequest"/>
+    </message>
+
+    <message name="GetDResponseMessage">
+        <part name="parameters" element="tns:GetDResponse"/>
+    </message>
+
+    <!-- ================== PORT TYPE ================== -->
+    <portType name="DServicePortType">
+        <operation name="GetDNames">
+            <input message="tns:GetDRequestMessage"/>
+            <output message="tns:GetDResponseMessage"/>
+        </operation>
+    </portType>
+
+    <!-- ================== BINDING ================== -->
+    <binding name="DServiceBinding" type="tns:DServicePortType">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="GetDNames">
+            <soap:operation soapAction="http://example.com/dservice/GetDNames"/>
+
+            <input>
+                <soap:body use="literal"/>
+            </input>
+
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <!-- ================== SERVICE ================== -->
+    <service name="DService">
+        <port name="DServicePort"
+              binding="tns:DServiceBinding">
+            <soap:address location="http://localhost:7800/api/DService"/>
+        </port>
+    </service>
+
+</definitions>

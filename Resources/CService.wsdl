@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://example.com/cservice"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    targetNamespace="http://example.com/cservice"
+    name="CService">
+
+    <!-- ================== TYPES ================== -->
+    <types>
+        <xs:schema targetNamespace="http://example.com/cservice"
+                   elementFormDefault="qualified">
+
+            <!-- Header -->
+            <xs:complexType name="GetCHeader">
+                <xs:sequence>
+                    <xs:element name="requestor" type="xs:string"/>
+                    <xs:element name="requestDateTime" type="xs:string"/>
+                    <xs:element name="callingContext" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <!-- Filter -->
+            <xs:complexType name="GetCFilter">
+                <xs:sequence>
+                    <xs:element name="includeNames" type="xs:boolean"/>
+                    <xs:element name="includeTrees" type="xs:boolean"/>
+                    <xs:element name="includeRoads" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <!-- Wrapped Request -->
+            <xs:element name="GetCRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="header" type="tns:GetCHeader"/>
+                        <xs:element name="filter" type="tns:GetCFilter"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- Wrapped Response -->
+            <xs:element name="GetCResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="header" type="tns:GetCHeader"/>
+                        <xs:element name="Names">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Category" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="CategoryName" type="xs:string"/>
+                                                <xs:element name="Name" type="xs:string" maxOccurs="unbounded"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:schema>
+    </types>
+
+    <!-- ================== MESSAGES ================== -->
+
+    <message name="GetCRequestMessage">
+        <part name="parameters" element="tns:GetCRequest"/>
+    </message>
+
+    <message name="GetCResponseMessage">
+        <part name="parameters" element="tns:GetCResponse"/>
+    </message>
+
+    <!-- ================== PORT TYPE ================== -->
+    <portType name="CServicePortType">
+        <operation name="GetCNames">
+            <input message="tns:GetCRequestMessage"/>
+            <output message="tns:GetCResponseMessage"/>
+        </operation>
+    </portType>
+
+    <!-- ================== BINDING ================== -->
+    <binding name="CServiceBinding" type="tns:CServicePortType">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="GetCNames">
+            <soap:operation soapAction="http://example.com/cservice/GetCNames"/>
+
+            <input>
+                <soap:body use="literal"/>
+            </input>
+
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <!-- ================== SERVICE ================== -->
+    <service name="CService">
+        <port name="CServicePort"
+              binding="tns:CServiceBinding">
+            <soap:address location="http://localhost:7800/api/CService"/>
+        </port>
+    </service>
+
+</definitions>

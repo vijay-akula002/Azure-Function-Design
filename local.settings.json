@@ -1,0 +1,13 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+        ,
+        "Services__BaseURL": "http://localhost:8088/namesservice/",
+        "Services__A__URI": "aservice",
+        "Services__B__URI": "bservice",
+        "Services__C__URI": "cservice",
+        "Services__D__URI": "dservice"
+    }
+}
